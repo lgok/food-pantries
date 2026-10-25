@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Analytics & Community Demand Report — Nationwide Food Pantries</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card: #1e293b;
+      --border: #334155;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --green: #22c55e;
+      --green-light: #4ade80;
+      --blue: #2563eb;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      padding-bottom: 64px;
+    }
+
+    header {
+      background: #020617;
+      border-bottom: 1px solid var(--border);
+      padding: 18px 24px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .header-inner {
+      max-width: 1140px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-icon {
+      background: rgba(34, 197, 94, 0.15);
+      color: var(--green-light);
+      font-size: 22px;
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .brand h1 {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #ffffff;
+    }
+
+    .brand p {
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .btn {
+      background: var(--card);
+      color: var(--text);
+      border: 1px solid #475569;
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.15s ease;
+    }
+
+    .btn:hover {
+      background: #334155;
+    }
+
+    .btn.primary {
+      background: var(--blue);
+      border-color: var(--blue);
+      color: #ffffff;
+    }
+
+    .btn.primary:hover {
+      background: #1d4ed8;
+    }
+
+    .btn.green {
+      background: #15803d;
+      border-color: #15803d;
+      color: #ffffff;
+    }
+
+    .btn.green:hover {
+      background: #166534;
+    }
+
+    .container {
+      max-width: 1140px;
+      margin: 26px auto;
+      padding: 0 16px;
+    }
+
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+      margin-bottom: 22px;
+    }
+
+    .kpi-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px;
+    }
+
+    .kpi-label {
+      font-size: 0.76rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-weight: 700;
+    }
+
+    .kpi-value {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--green-light);
+      margin-top: 6px;
+    }
+
+    .kpi-sub {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    .panel {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 14px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .panel-header h2 {
+      font-size: 1.05rem;
+      font-weight: 800;
+    }
+
+    .panel-header span {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    /* Bar Chart Rows */
+    .bar-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 10px;
+      font-size: 0.85rem;
+    }
+
+    .bar-label {
+      width: 165px;
+      font-weight: 700;
+      color: #e2e8f0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .bar-track {
+      flex: 1;
+      background: #0f172a;
+      height: 12px;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .bar-fill {
+      background: var(--green);
+      height: 100%;
+      border-radius: 999px;
+      transition: width 0.25s ease;
+    }
+
+    .bar-count {
+      width: 95px;
+      text-align: right;
+      color: var(--muted);
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* Tables */
+    .table-wrap {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.86rem;
+    }
+
+    th, td {
+      padding: 11px 12px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+
+    th {
+      color: var(--muted);
+      font-size: 0.76rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      font-weight: 700;
+      background: rgba(15, 23, 42, 0.45);
+    }
+
+    tr:hover td {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .click-pill {
+      background: rgba(34, 197, 94, 0.18);
+      color: var(--green-light);
+      padding: 3px 9px;
+      border-radius: 999px;
+      font-weight: 800;
+      font-size: 0.78rem;
+    }
+
+    .state-tag {
+      background: #0f172a;
+      border: 1px solid #475569;
+      color: #f8fafc;
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 0.76rem;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-inner">
+      <div class="brand">
+        <div class="brand-icon">📊</div>
+        <div>
+          <h1>Nationwide Food Pantries — Analytics &amp; Demand Report</h1>
+          <p>Real-Time Visitor Traffic, State Demand &amp; Outbound Pantry Website Clicks</p>
+        </div>
+      </div>
+
+      <div class="toolbar">
+        <a href="index.html" class="btn green">&larr; Back to Pantries Directory</a>
+        <button class="btn primary" onclick="exportAnalyticsCSV()">📥 Download CSV Report</button>
+        <button class="btn" onclick="simulateClicks()">🧪 Simulate +25 Visitor Clicks</button>
+        <button class="btn" onclick="resetAnalytics()">Reset Stats</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- KPI Summary Grid -->
+    <section class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-label">Total Directory Visits</div>
+        <div class="kpi-value" id="kpiViews">0</div>
+        <div class="kpi-sub">Total page loads tracked</div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-label">Total Outbound Website Clicks</div>
+        <div class="kpi-value" id="kpiClicks">0</div>
+        <div class="kpi-sub">Visitors sent to pantry websites</div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-label">Click-Through Rate (CTR)</div>
+        <div class="kpi-value" id="kpiCtr">0%</div>
+        <div class="kpi-sub">Clicks per directory visit</div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-label">Top State by Demand</div>
+        <div class="kpi-value" id="kpiTopState" style="font-size: 1.45rem;">—</div>
+        <div class="kpi-sub" id="kpiTopPantrySub">Most active state</div>
+      </div>
+    </section>
+
+    <!-- Clicks by State Bar Chart -->
+    <section class="panel">
+      <div class="panel-header">
+        <h2>🗺️ Outbound Pantry Clicks by U.S. State</h2>
+        <span>Shows which states have the highest visitor demand</span>
+      </div>
+      <div id="stateBarsContainer"></div>
+    </section>
+
+    <!-- Ranked Pantry Performance Table -->
+    <section class="panel">
+      <div class="panel-header">
+        <h2>🍎 Outbound Clicks by Food Pantry / Regional Food Bank</h2>
+        <span id="pantryTableCount">All 50 States + DC</span>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>State</th>
+              <th>City</th>
+              <th>Pantry / Food Bank Name</th>
+              <th>Hours</th>
+              <th>Tracked Clicks</th>
+              <th>Destination Link</th>
+            </tr>
+          </thead>
+          <tbody id="pantryTableBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Recent Visitor Click Log -->
+    <section class="panel">
+      <div class="panel-header">
+        <h2>🕒 Recent Visitor Click Log</h2>
+        <span>Latest outbound website clicks</span>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Time</th>
+              <th>State</th>
+              <th>City</th>
+              <th>Pantry Name</th>
+            </tr>
+          </thead>
+          <tbody id="historyTableBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="pantries_data.js"></script>
+  <script>
+    const COMMUNITY_STORAGE_KEY = "nationwide_community_food_pantries_v1";
+    const STATS_STORAGE_KEY = "nationwide_food_pantries_stats_v1";
+
+    function loadStats() {
+      try {
+        const raw = localStorage.getItem(STATS_STORAGE_KEY);
+        if (raw) return JSON.parse(raw);
+      } catch (e) {}
+      return { pageViews: 1, totalClicks: 0, stateClicks: {}, pantryClicks: {}, clickHistory: [] };
+    }
+
+    function saveStats(s) {
+      localStorage.setItem(STATS_STORAGE_KEY, JSON.stringify(s));
+    }
+
+    function getAllPantries() {
+      const base = (window.FOOD_PANTRIES_DATA && window.FOOD_PANTRIES_DATA.pantries) ? window.FOOD_PANTRIES_DATA.pantries : [];
+      let community = [];
+      try {
+        const raw = localStorage.getItem(COMMUNITY_STORAGE_KEY);
+        if (raw) community = JSON.parse(raw);
+      } catch (e) {}
+      return [...community, ...base];
+    }
+
+    function renderAnalytics() {
+      const stats = loadStats();
+      const pantries = getAllPantries();
+
+      document.getElementById("kpiViews").textContent = stats.pageViews || 0;
+      document.getElementById("kpiClicks").textContent = stats.totalClicks || 0;
+
+      const ctr = stats.pageViews > 0 ? Math.round(((stats.totalClicks || 0) / stats.pageViews) * 100) : 0;
+      document.getElementById("kpiCtr").textContent = `${ctr}%`;
+
+      // Compute State rankings
+      const stateEntries = Object.entries(stats.stateClicks || {})
+        .filter(([, count]) => count > 0)
+        .sort((a, b) => b[1] - a[1]);
+
+      if (stateEntries.length > 0) {
+        const [topStateCode, topStateCount] = stateEntries[0];
+        document.getElementById("kpiTopState").textContent = `${topStateCode} (${topStateCount} clicks)`;
+      } else {
+        document.getElementById("kpiTopState").textContent = "—";
+      }
+
+      // Render State Bar Chart
+      const barsContainer = document.getElementById("stateBarsContainer");
+      if (stateEntries.length === 0) {
+        barsContainer.innerHTML = `<div style="color:#94a3b8; font-size:0.88rem; padding:12px 0;">No state clicks recorded yet. Click "Visit Website →" on any pantry in the directory or click "Simulate +25 Visitor Clicks" above to preview.</div>`;
+      } else {
+        const maxStateClicks = Math.max(1, ...stateEntries.map(e => e[1]));
+        barsContainer.innerHTML = stateEntries.slice(0, 15).map(([st, count]) => {
+          const pct = Math.round((count / maxStateClicks) * 100);
+          const samplePantry = pantries.find(p => p.state === st);
+          const stateFull = samplePantry ? `${st} — ${samplePantry.state_name}` : st;
+          return `
+            <div class="bar-row">
+              <div class="bar-label">${stateFull}</div>
+              <div class="bar-track">
+                <div class="bar-fill" style="width:${Math.max(pct, 4)}%"></div>
+              </div>
+              <div class="bar-count">${count} ${count === 1 ? 'click' : 'clicks'}</div>
+            </div>
+          `;
+        }).join("");
+      }
+
+      // Render Ranked Pantry Table
+      const rankedPantries = pantries.map(p => ({
+        ...p,
+        clicks: (stats.pantryClicks && stats.pantryClicks[p.id]) || 0
+      })).sort((a, b) => b.clicks - a.clicks);
+
+      document.getElementById("pantryTableCount").textContent = `${rankedPantries.length} Total Pantries Tracked`;
+      const tbody = document.getElementById("pantryTableBody");
+      tbody.innerHTML = rankedPantries.map(p => `
+        <tr>
+          <td><span class="state-tag">${p.state}</span></td>
+          <td>${p.city}</td>
+          <td style="font-weight:700; color:#ffffff;">${p.name}</td>
+          <td style="color:#94a3b8;">${p.hours}</td>
+          <td><span class="click-pill">${p.clicks} ${p.clicks === 1 ? 'click' : 'clicks'}</span></td>
+          <td><a href="${p.website}" target="_blank" rel="noopener noreferrer" style="color:#60a5fa; text-decoration:none; font-weight:600;">Visit Site &rarr;</a></td>
+        </tr>
+      `).join("");
+
+      // Render Recent Click History
+      const historyBody = document.getElementById("historyTableBody");
+      const history = stats.clickHistory || [];
+      if (history.length === 0) {
+        historyBody.innerHTML = `<tr><td colspan="4" style="color:#94a3b8; text-align:center; padding:18px;">No recent clicks logged yet.</td></tr>`;
+      } else {
+        historyBody.innerHTML = history.slice(0, 25).map(item => {
+          const dt = new Date(item.timestamp);
+          const timeStr = isNaN(dt) ? item.timestamp : dt.toLocaleString();
+          return `
+            <tr>
+              <td style="color:#94a3b8; white-space:nowrap;">${timeStr}</td>
+              <td><span class="state-tag">${item.state}</span></td>
+              <td>${item.city}</td>
+              <td style="font-weight:700;">${item.name}</td>
+            </tr>
+          `;
+        }).join("");
+      }
+    }
+
+    function simulateClicks() {
+      const pantries = getAllPantries();
+      if (!pantries.length) return;
+      const stats = loadStats();
+      stats.pageViews = (stats.pageViews || 0) + 18;
+      stats.stateClicks = stats.stateClicks || {};
+      stats.pantryClicks = stats.pantryClicks || {};
+      stats.clickHistory = stats.clickHistory || [];
+
+      for (let i = 0; i < 25; i++) {
+        const idx = Math.floor(Math.pow(Math.random(), 1.35) * pantries.length);
+        const p = pantries[idx];
+        stats.totalClicks = (stats.totalClicks || 0) + 1;
+        stats.stateClicks[p.state] = (stats.stateClicks[p.state] || 0) + 1;
+        stats.pantryClicks[p.id] = (stats.pantryClicks[p.id] || 0) + 1;
+        stats.clickHistory.unshift({
+          timestamp: new Date().toISOString(),
+          id: p.id,
+          name: p.name,
+          state: p.state,
+          state_name: p.state_name,
+          city: p.city,
+          website: p.website
+        });
+      }
+
+      saveStats(stats);
+      renderAnalytics();
+    }
+
+    function resetAnalytics() {
+      const empty = { pageViews: 1, totalClicks: 0, stateClicks: {}, pantryClicks: {}, clickHistory: [] };
+      saveStats(empty);
+      renderAnalytics();
+    }
+
+    function exportAnalyticsCSV() {
+      const stats = loadStats();
+      const pantries = getAllPantries();
+      const rows = [
+        ["State", "State Name", "City", "Pantry Name", "Hours", "Tracked Clicks", "Official Website"]
+      ];
+
+      pantries
+        .map(p => ({ ...p, clicks: (stats.pantryClicks && stats.pantryClicks[p.id]) || 0 }))
+        .sort((a, b) => b.clicks - a.clicks)
+        .forEach(p => {
+          rows.push([
+            p.state,
+            p.state_name,
+            p.city,
+            p.name,
+            p.hours,
+            p.clicks,
+            p.website
+          ]);
+        });
+
+      const csvContent = "data:text/csv;charset=utf-8," +
+        rows.map(r => r.map(c => `"${String(c ?? '').replace(/"/g, '""')}"`).join(",")).join("\n");
+      const link = document.createElement("a");
+      link.setAttribute("href", encodeURI(csvContent));
+      link.setAttribute("download", "nationwide_food_pantries_analytics_report.csv");
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+
+    renderAnalytics();
+  </script>
+</body>
+</html>

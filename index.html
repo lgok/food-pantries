@@ -1,0 +1,1426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nationwide Food Pantries & Community Food Bank Directory — All 50 States + DC</title>
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --text: #0f172a;
+      --muted: #475569;
+      --border: #e2e8f0;
+      --accent: #15803d;
+      --accent-hover: #166534;
+      --accent-light: #dcfce7;
+      --blue: #1d4ed8;
+      --blue-light: #dbeafe;
+      --amber-light: #fef3c7;
+      --amber-text: #92400e;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      padding-bottom: 64px;
+    }
+
+    /* Top Emergency Helpline Banner */
+    .helpline-bar {
+      background: #0f172a;
+      color: #f8fafc;
+      font-size: 0.82rem;
+      padding: 8px 16px;
+    }
+
+    .helpline-inner {
+      max-width: 1140px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .helpline-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      align-items: center;
+    }
+
+    .helpline-links a {
+      color: #4ade80;
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    .helpline-links a:hover {
+      text-decoration: underline;
+    }
+
+    /* Main Header */
+    header {
+      background: #ffffff;
+      border-bottom: 1px solid var(--border);
+      padding: 18px 24px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    }
+
+    .header-inner {
+      max-width: 1140px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-icon {
+      background: var(--accent-light);
+      color: var(--accent);
+      font-size: 24px;
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      flex-shrink: 0;
+    }
+
+    .brand h1 {
+      font-size: 1.3rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--text);
+    }
+
+    .brand p {
+      font-size: 0.84rem;
+      color: var(--muted);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .btn-submit {
+      background: var(--accent);
+      color: #ffffff;
+      border: none;
+      padding: 9px 16px;
+      border-radius: 8px;
+      font-size: 0.86rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.15s ease;
+    }
+
+    .btn-submit:hover {
+      background: var(--accent-hover);
+    }
+
+    .btn-secondary {
+      background: #f1f5f9;
+      color: #1e293b;
+      border: 1px solid #cbd5e1;
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: 0.84rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.15s ease;
+    }
+
+    .btn-secondary:hover {
+      background: #e2e8f0;
+    }
+
+    .container {
+      max-width: 1140px;
+      margin: 22px auto;
+      padding: 0 16px;
+    }
+
+    /* Interactive 50-State + DC Locator Panel */
+    .state-locator-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 18px 20px;
+      margin-bottom: 16px;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+    }
+
+    .locator-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .locator-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .locator-title h2 {
+      font-size: 1.02rem;
+      font-weight: 800;
+    }
+
+    .coverage-badge {
+      background: var(--blue-light);
+      color: var(--blue);
+      font-size: 0.74rem;
+      font-weight: 700;
+      padding: 3px 9px;
+      border-radius: 999px;
+    }
+
+    .region-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .region-btn {
+      background: #f1f5f9;
+      color: #334155;
+      border: 1px solid transparent;
+      padding: 4px 11px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .region-btn.active {
+      background: #0f172a;
+      color: #ffffff;
+    }
+
+    .states-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(74px, 1fr));
+      gap: 6px;
+    }
+
+    .state-tile {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 6px 4px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.12s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .state-tile:hover {
+      border-color: var(--blue);
+      background: #eff6ff;
+    }
+
+    .state-tile.active {
+      background: var(--blue);
+      border-color: var(--blue);
+      color: #ffffff;
+    }
+
+    .state-code {
+      font-size: 0.86rem;
+      font-weight: 800;
+      line-height: 1.1;
+    }
+
+    .state-name-tiny {
+      font-size: 0.66rem;
+      color: var(--muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 68px;
+      margin-top: 2px;
+    }
+
+    .state-tile.active .state-name-tiny {
+      color: #dbeafe;
+    }
+
+    /* Search & Filter Controls */
+    .controls {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 16px 20px;
+      margin-bottom: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+    }
+
+    .search-row {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .search-input {
+      flex: 1;
+      min-width: 250px;
+      padding: 11px 15px;
+      border: 1px solid #cbd5e1;
+      border-radius: 9px;
+      font-size: 0.95rem;
+      outline: none;
+    }
+
+    .search-input:focus {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(29, 78, 216, 0.12);
+    }
+
+    .filter-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .tag-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .pill {
+      background: #f1f5f9;
+      color: #334155;
+      border: 1px solid transparent;
+      padding: 6px 13px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .pill:hover {
+      background: #e2e8f0;
+    }
+
+    .pill.active {
+      background: var(--accent);
+      color: #ffffff;
+    }
+
+    .results-count {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--muted);
+    }
+
+    /* Dynamic Live ZIP Code Helper Card */
+    .zip-helper-card {
+      display: none;
+      background: #eff6ff;
+      border: 1px solid #93c5fd;
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-bottom: 16px;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .zip-helper-card.show {
+      display: flex;
+    }
+
+    .zip-helper-info h3 {
+      font-size: 1rem;
+      color: #1e3a8a;
+      margin-bottom: 3px;
+    }
+
+    .zip-helper-info p {
+      font-size: 0.85rem;
+      color: #1e40af;
+    }
+
+    .zip-helper-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    /* Pantry Directory List */
+    .pantries-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .pantry-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 18px;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+    }
+
+    .pantry-card:hover {
+      border-color: #cbd5e1;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+
+    .pantry-main {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .pantry-top-row {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+
+    .state-badge {
+      background: #0f172a;
+      color: #ffffff;
+      font-weight: 800;
+      font-size: 0.76rem;
+      padding: 3px 9px;
+      border-radius: 6px;
+      letter-spacing: 0.02em;
+    }
+
+    .city-badge {
+      background: #f1f5f9;
+      color: #334155;
+      font-weight: 700;
+      font-size: 0.78rem;
+      padding: 3px 9px;
+      border-radius: 6px;
+    }
+
+    .type-badge {
+      background: var(--blue-light);
+      color: var(--blue);
+      font-weight: 700;
+      font-size: 0.75rem;
+      padding: 3px 9px;
+      border-radius: 6px;
+    }
+
+    .community-badge {
+      background: var(--amber-light);
+      color: var(--amber-text);
+      font-weight: 700;
+      font-size: 0.75rem;
+      padding: 3px 9px;
+      border-radius: 6px;
+    }
+
+    .pantry-title {
+      font-size: 1.08rem;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+
+    .pantry-details {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 8px 18px;
+      font-size: 0.87rem;
+      color: #334155;
+      margin-bottom: 10px;
+    }
+
+    .detail-item strong {
+      color: #0f172a;
+    }
+
+    .pantry-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .service-tag {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      color: #475569;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 2px 9px;
+      border-radius: 999px;
+    }
+
+    .service-tag.green {
+      background: var(--accent-light);
+      border-color: #bbf7d0;
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .pantry-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      min-width: 170px;
+      flex-shrink: 0;
+    }
+
+    .action-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      text-decoration: none;
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: 0.84rem;
+      font-weight: 700;
+      transition: all 0.15s ease;
+      text-align: center;
+    }
+
+    .action-btn.primary {
+      background: var(--accent);
+      color: #ffffff;
+    }
+
+    .action-btn.primary:hover {
+      background: var(--accent-hover);
+    }
+
+    .action-btn.outline {
+      background: #f8fafc;
+      color: #1e293b;
+      border: 1px solid #cbd5e1;
+    }
+
+    .action-btn.outline:hover {
+      background: #e2e8f0;
+    }
+
+    /* Submit / Update Pantry Modal */
+    .modal-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.72);
+      z-index: 999;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+      overflow-y: auto;
+    }
+
+    .modal-backdrop.open {
+      display: flex;
+    }
+
+    .modal-card {
+      background: #ffffff;
+      border-radius: 16px;
+      max-width: 620px;
+      width: 100%;
+      padding: 24px;
+      box-shadow: 0 20px 45px rgba(0,0,0,0.28);
+      max-height: 92vh;
+      overflow-y: auto;
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .modal-header h3 {
+      font-size: 1.15rem;
+      font-weight: 800;
+    }
+
+    .close-x {
+      background: none;
+      border: none;
+      font-size: 1.3rem;
+      cursor: pointer;
+      color: var(--muted);
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .form-group.full {
+      grid-column: 1 / -1;
+    }
+
+    .form-group label {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #334155;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      padding: 9px 12px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      font-size: 0.88rem;
+      font-family: inherit;
+    }
+
+    .checkbox-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 4px;
+    }
+
+    .checkbox-label {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.82rem;
+      color: #334155;
+      cursor: pointer;
+    }
+
+    footer {
+      max-width: 1140px;
+      margin: 36px auto 0;
+      padding: 20px 16px 0;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    @media (max-width: 720px) {
+      .pantry-card {
+        flex-direction: column;
+      }
+      .pantry-actions {
+        width: 100%;
+        flex-direction: row;
+        flex-wrap: wrap;
+      }
+      .action-btn {
+        flex: 1;
+      }
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Emergency 24/7 Food Assistance Bar -->
+  <div class="helpline-bar">
+    <div class="helpline-inner">
+      <div>
+        🇺🇸 <strong>Nationwide Free Food Assistance Directory</strong> — Covering All 50 States &amp; Washington, D.C.
+      </div>
+      <div class="helpline-links">
+        <span>Need Immediate Food Today? <a href="tel:211">📞 Dial 2-1-1 (24/7 Local Helpline)</a></span>
+        <span>•</span>
+        <span>USDA Hunger Hotline: <a href="tel:18663486479">1-866-3-HUNGRY</a></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Sticky Header -->
+  <header>
+    <div class="header-inner">
+      <div class="brand">
+        <div class="brand-icon">🍎</div>
+        <div>
+          <h1>Nationwide Food Pantries</h1>
+          <p>Free Community Food Distributions, Drive-Thru Pantries &amp; Regional Food Banks (All 50 States + DC)</p>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <a href="analytics.html" class="btn-secondary" style="background:#0f172a; color:#ffffff; border-color:#0f172a; text-decoration:none; font-weight:700;">
+          📊 Analytics Page
+          <span id="headerClickBadge" style="background:#22c55e; color:#052e16; padding:2px 7px; border-radius:999px; font-size:0.75rem; font-weight:800;">0 Clicks</span>
+        </a>
+        <button class="btn-secondary" onclick="resetAllFilters()" title="Show all 50 states">
+          🗺️ View All 50 States
+        </button>
+        <button class="btn-submit" onclick="openSubmitModal()">
+          ➕ Submit / Update a Pantry
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- Interactive US State / Regional Food Bank Locator (All 50 States + DC) -->
+    <section class="state-locator-card">
+      <div class="locator-header">
+        <div class="locator-title">
+          <h2>🗺️ Interactive U.S. State &amp; Regional Food Bank Locator</h2>
+          <span class="coverage-badge" id="stateCoverageBadge">50 States + DC Active</span>
+        </div>
+        <div class="region-tabs" id="regionTabs">
+          <button class="region-btn active" onclick="selectRegion('ALL')">All Regions (51)</button>
+          <button class="region-btn" onclick="selectRegion('West')">West</button>
+          <button class="region-btn" onclick="selectRegion('Midwest')">Midwest</button>
+          <button class="region-btn" onclick="selectRegion('South')">South</button>
+          <button class="region-btn" onclick="selectRegion('Northeast')">Northeast</button>
+        </div>
+      </div>
+      <div class="states-grid" id="statesGrid"></div>
+    </section>
+
+    <!-- Search & Distribution Filter Controls -->
+    <section class="controls">
+      <div class="search-row">
+        <input
+          type="text"
+          id="searchInput"
+          class="search-input"
+          placeholder="Search by ZIP Code (e.g. 91761, 90058, 77029), City, State, or Pantry Name..."
+          oninput="handleSearchInput()"
+        />
+        <button class="btn-secondary" onclick="clearSearch()" id="clearSearchBtn" style="display:none;">
+          ✕ Clear Search
+        </button>
+      </div>
+
+      <div class="filter-row">
+        <div class="tag-pills" id="tagPillsContainer"></div>
+        <div class="results-count" id="resultsCountText">Showing all verified pantries</div>
+      </div>
+    </section>
+
+    <!-- Instant Any-ZIP-Code Local Pantry Finder Banner (Appears automatically when user types any 5-digit ZIP) -->
+    <section class="zip-helper-card" id="zipHelperCard">
+      <div class="zip-helper-info">
+        <h3 id="zipHelperTitle">📍 Live Local Pantry Lookup for ZIP Code</h3>
+        <p id="zipHelperDesc">Need every church pantry, school distribution, and mobile food truck inside this exact ZIP code today?</p>
+      </div>
+      <div class="zip-helper-actions">
+        <a id="zipGoogleMapsBtn" href="#" target="_blank" rel="noopener noreferrer" class="action-btn primary">
+          🗺️ View Pantries in This ZIP on Maps &rarr;
+        </a>
+        <a id="zipFeedingAmericaBtn" href="https://www.feedingamerica.org/find-your-local-foodbank" target="_blank" rel="noopener noreferrer" class="action-btn outline">
+          🌾 Feeding America ZIP Lookup
+        </a>
+        <a href="https://www.211.org/" target="_blank" rel="noopener noreferrer" class="action-btn outline">
+          📞 211.org Local Finder
+        </a>
+      </div>
+    </section>
+
+    <!-- Pantries Directory Listing -->
+    <section class="pantries-list" id="pantriesListContainer"></section>
+
+  </main>
+
+  <!-- Submit / Update a Pantry Modal -->
+  <div class="modal-backdrop" id="submitModal" onclick="closeSubmitModal(event)">
+    <div class="modal-card" onclick="event.stopPropagation()">
+      <div class="modal-header">
+        <h3>➕ Submit or Update a Local Food Pantry</h3>
+        <button class="close-x" onclick="closeSubmitModal()">&times;</button>
+      </div>
+      <p style="font-size:0.84rem; color:#475569; margin-bottom:14px;">
+        Add a free community food pantry or update distribution hours below. All listings must be 100% family-safe and free to the community.
+      </p>
+
+      <form id="submitPantryForm" onsubmit="handlePantrySubmit(event)">
+        <div class="form-grid">
+          <div class="form-group full">
+            <label for="fName">Pantry or Organization Name *</label>
+            <input type="text" id="fName" required placeholder="e.g. St. Joseph Community Food Pantry" />
+          </div>
+
+          <div class="form-group">
+            <label for="fState">State *</label>
+            <select id="fState" required></select>
+          </div>
+
+          <div class="form-group">
+            <label for="fCity">City / Metro *</label>
+            <input type="text" id="fCity" required placeholder="e.g. Ontario" />
+          </div>
+
+          <div class="form-group">
+            <label for="fZip">5-Digit ZIP Code *</label>
+            <input type="text" id="fZip" required pattern="[0-9]{5}" maxlength="5" placeholder="e.g. 91761" />
+          </div>
+
+          <div class="form-group">
+            <label for="fHours">Distribution Days &amp; Hours *</label>
+            <input type="text" id="fHours" required placeholder="e.g. Mon–Fri 9:00 AM – 1:00 PM" />
+          </div>
+
+          <div class="form-group full">
+            <label for="fWebsite">Official Website Link *</label>
+            <input type="url" id="fWebsite" required placeholder="https://..." />
+          </div>
+        </div>
+
+        <div id="formErrorMsg" style="color:#dc2626; font-size:0.82rem; font-weight:600; margin-top:10px; display:none;"></div>
+
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:18px; padding-top:14px; border-top:1px solid #e2e8f0; flex-wrap:wrap; gap:10px;">
+          <button type="button" class="btn-secondary" onclick="exportCommunityPantriesCSV()" title="Download community-submitted pantries">
+            📥 Export Submissions (CSV)
+          </button>
+          <div style="display:flex; gap:8px;">
+            <button type="button" class="btn-secondary" onclick="closeSubmitModal()">Cancel</button>
+            <button type="submit" class="btn-submit">✅ Publish Pantry Listing</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <footer>
+    <p style="margin-bottom: 8px;">
+      <strong>Nationwide Food Pantries &amp; Community Food Bank Directory</strong> • 100% Free Family &amp; Community Resource covering all 50 States &amp; D.C.<br/>
+      Tip: Distribution schedules can change on holidays or due to weather—always check the pantry's official website before visiting.
+    </p>
+    <p style="font-size: 0.74rem; color: #64748b; max-width: 900px; margin: 0 auto;">
+      <strong>Public Directory &amp; Non-Affiliation Notice:</strong> This website is an independent public-interest directory providing factual information and outbound links to publicly accessible 501(c)(3) food banks and community pantries. All organization names are the property of their respective owners; listing does not imply endorsement or affiliation. Organizations may update or request removal of their listing at any time via the <em>Submit / Update a Pantry</em> button above.
+    </p>
+  </footer>
+
+  <script src="pantries_data.js"></script>
+  <script>
+    const COMMUNITY_STORAGE_KEY = "nationwide_community_food_pantries_v1";
+    const STATS_STORAGE_KEY = "nationwide_food_pantries_stats_v1";
+
+    function loadStats() {
+      try {
+        const raw = localStorage.getItem(STATS_STORAGE_KEY);
+        if (raw) return JSON.parse(raw);
+      } catch (e) {}
+      return { pageViews: 0, totalClicks: 0, stateClicks: {}, pantryClicks: {}, clickHistory: [] };
+    }
+
+    function saveStats(s) {
+      localStorage.setItem(STATS_STORAGE_KEY, JSON.stringify(s));
+    }
+
+    let stats = loadStats();
+    stats.pageViews = (stats.pageViews || 0) + 1;
+    saveStats(stats);
+
+    function updateHeaderBadge() {
+      const el = document.getElementById("headerClickBadge");
+      if (el) el.textContent = `${stats.totalClicks || 0} Clicks`;
+    }
+    updateHeaderBadge();
+
+    function recordPantryClick(pantryId) {
+      const allPantries = getAllPantries();
+      const pantry = allPantries.find(x => x.id === pantryId);
+      if (!pantry) return;
+
+      stats = loadStats();
+      stats.totalClicks = (stats.totalClicks || 0) + 1;
+      stats.stateClicks[pantry.state] = (stats.stateClicks[pantry.state] || 0) + 1;
+      stats.pantryClicks[pantry.id] = (stats.pantryClicks[pantry.id] || 0) + 1;
+      stats.clickHistory = stats.clickHistory || [];
+      stats.clickHistory.unshift({
+        timestamp: new Date().toISOString(),
+        id: pantry.id,
+        name: pantry.name,
+        state: pantry.state,
+        state_name: pantry.state_name,
+        city: pantry.city,
+        website: pantry.website
+      });
+      if (stats.clickHistory.length > 250) stats.clickHistory.length = 250;
+      saveStats(stats);
+      updateHeaderBadge();
+    }
+
+    // Strict Zero-Alcohol & Family Safety filter
+    const FORBIDDEN_ALCOHOL_TERMS = [
+      "wine", "beer", "vodka", "whiskey", "tequila", "rum", "gin", "liquor",
+      "champagne", "prosecco", "ipa", "lager", "hard seltzer", "alcohol",
+      "spirits", "bourbon", "scotch", "winery", "brewery", "taproom"
+    ];
+
+    const US_STATES_META = [
+      { code: "AL", name: "Alabama", region: "South" },
+      { code: "AK", name: "Alaska", region: "West" },
+      { code: "AZ", name: "Arizona", region: "West" },
+      { code: "AR", name: "Arkansas", region: "South" },
+      { code: "CA", name: "California", region: "West" },
+      { code: "CO", name: "Colorado", region: "West" },
+      { code: "CT", name: "Connecticut", region: "Northeast" },
+      { code: "DE", name: "Delaware", region: "South" },
+      { code: "DC", name: "District of Columbia", region: "South" },
+      { code: "FL", name: "Florida", region: "South" },
+      { code: "GA", name: "Georgia", region: "South" },
+      { code: "HI", name: "Hawaii", region: "West" },
+      { code: "ID", name: "Idaho", region: "West" },
+      { code: "IL", name: "Illinois", region: "Midwest" },
+      { code: "IN", name: "Indiana", region: "Midwest" },
+      { code: "IA", name: "Iowa", region: "Midwest" },
+      { code: "KS", name: "Kansas", region: "Midwest" },
+      { code: "KY", name: "Kentucky", region: "South" },
+      { code: "LA", name: "Louisiana", region: "South" },
+      { code: "ME", name: "Maine", region: "Northeast" },
+      { code: "MD", name: "Maryland", region: "South" },
+      { code: "MA", name: "Massachusetts", region: "Northeast" },
+      { code: "MI", name: "Michigan", region: "Midwest" },
+      { code: "MN", name: "Minnesota", region: "Midwest" },
+      { code: "MS", name: "Mississippi", region: "South" },
+      { code: "MO", name: "Missouri", region: "Midwest" },
+      { code: "MT", name: "Montana", region: "West" },
+      { code: "NE", name: "Nebraska", region: "Midwest" },
+      { code: "NV", name: "Nevada", region: "West" },
+      { code: "NH", name: "New Hampshire", region: "Northeast" },
+      { code: "NJ", name: "New Jersey", region: "Northeast" },
+      { code: "NM", name: "New Mexico", region: "West" },
+      { code: "NY", name: "New York", region: "Northeast" },
+      { code: "NC", name: "North Carolina", region: "South" },
+      { code: "ND", name: "North Dakota", region: "Midwest" },
+      { code: "OH", name: "Ohio", region: "Midwest" },
+      { code: "OK", name: "Oklahoma", region: "South" },
+      { code: "OR", name: "Oregon", region: "West" },
+      { code: "PA", name: "Pennsylvania", region: "Northeast" },
+      { code: "RI", name: "Rhode Island", region: "Northeast" },
+      { code: "SC", name: "South Carolina", region: "South" },
+      { code: "SD", name: "South Dakota", region: "Midwest" },
+      { code: "TN", name: "Tennessee", region: "South" },
+      { code: "TX", name: "Texas", region: "South" },
+      { code: "UT", name: "Utah", region: "West" },
+      { code: "VT", name: "Vermont", region: "Northeast" },
+      { code: "VA", name: "Virginia", region: "South" },
+      { code: "WA", name: "Washington", region: "West" },
+      { code: "WV", name: "West Virginia", region: "South" },
+      { code: "WI", name: "Wisconsin", region: "Midwest" },
+      { code: "WY", name: "Wyoming", region: "West" }
+    ];
+
+    const FILTER_TAGS = [
+      "ALL",
+      "No ID Required",
+      "Drive-Thru",
+      "Walk-Up",
+      "Fresh Produce",
+      "Family & Kids",
+      "Diapers & Baby",
+      "Senior Boxes"
+    ];
+
+    let selectedRegion = "ALL";
+    let selectedState = "ALL";
+    let selectedTag = "ALL";
+
+    // Map 3-digit ZIP prefix ranges to US State codes so ANY 5-digit ZIP automatically highlights its State!
+    function getStateFromZip(zip) {
+      if (!/^\d{5}$/.test(zip)) return null;
+      const p = parseInt(zip.substring(0, 3), 10);
+      if (p >= 350 && p <= 369) return "AL";
+      if (p >= 995 && p <= 999) return "AK";
+      if (p >= 850 && p <= 865) return "AZ";
+      if (p >= 716 && p <= 729) return "AR";
+      if (p >= 900 && p <= 961) return "CA";
+      if (p >= 800 && p <= 816) return "CO";
+      if (p >= 60 && p <= 69) return "CT";
+      if (p >= 197 && p <= 199) return "DE";
+      if (p >= 200 && p <= 205) return "DC";
+      if (p >= 320 && p <= 349) return "FL";
+      if (p >= 300 && p <= 319) return "GA";
+      if (p >= 967 && p <= 968) return "HI";
+      if (p >= 832 && p <= 838) return "ID";
+      if (p >= 600 && p <= 629) return "IL";
+      if (p >= 460 && p <= 479) return "IN";
+      if (p >= 500 && p <= 528) return "IA";
+      if (p >= 660 && p <= 679) return "KS";
+      if (p >= 400 && p <= 427) return "KY";
+      if (p >= 700 && p <= 714) return "LA";
+      if (p >= 39 && p <= 49) return "ME";
+      if (p >= 206 && p <= 219) return "MD";
+      if (p >= 10 && p <= 27) return "MA";
+      if (p >= 480 && p <= 499) return "MI";
+      if (p >= 550 && p <= 567) return "MN";
+      if (p >= 386 && p <= 397) return "MS";
+      if (p >= 630 && p <= 658) return "MO";
+      if (p >= 590 && p <= 599) return "MT";
+      if (p >= 680 && p <= 693) return "NE";
+      if (p >= 889 && p <= 898) return "NV";
+      if (p >= 30 && p <= 38) return "NH";
+      if (p >= 70 && p <= 89) return "NJ";
+      if (p >= 870 && p <= 884) return "NM";
+      if (p >= 100 && p <= 149) return "NY";
+      if (p >= 270 && p <= 289) return "NC";
+      if (p >= 580 && p <= 588) return "ND";
+      if (p >= 430 && p <= 459) return "OH";
+      if (p >= 730 && p <= 749) return "OK";
+      if (p >= 970 && p <= 979) return "OR";
+      if (p >= 150 && p <= 196) return "PA";
+      if (p >= 28 && p <= 29) return "RI";
+      if (p >= 290 && p <= 299) return "SC";
+      if (p >= 570 && p <= 577) return "SD";
+      if (p >= 370 && p <= 385) return "TN";
+      if ((p >= 750 && p <= 799) || p === 885) return "TX";
+      if (p >= 840 && p <= 847) return "UT";
+      if (p >= 50 && p <= 59) return "VT";
+      if (p >= 220 && p <= 246) return "VA";
+      if (p >= 980 && p <= 994) return "WA";
+      if (p >= 247 && p <= 268) return "WV";
+      if (p >= 530 && p <= 549) return "WI";
+      if (p >= 820 && p <= 831) return "WY";
+      return null;
+    }
+
+    function isFamilySafeText(text) {
+      const lower = (text || "").toLowerCase();
+      return !FORBIDDEN_ALCOHOL_TERMS.some(term => {
+        const regex = new RegExp("\\b" + term + "\\b", "i");
+        return regex.test(lower);
+      });
+    }
+
+    function loadCommunityPantries() {
+      try {
+        const raw = localStorage.getItem(COMMUNITY_STORAGE_KEY);
+        if (raw) return JSON.parse(raw);
+      } catch (e) {}
+      return [];
+    }
+
+    function saveCommunityPantries(list) {
+      localStorage.setItem(COMMUNITY_STORAGE_KEY, JSON.stringify(list));
+    }
+
+    function getAllPantries() {
+      const base = (window.FOOD_PANTRIES_DATA && window.FOOD_PANTRIES_DATA.pantries) ? window.FOOD_PANTRIES_DATA.pantries : [];
+      const community = loadCommunityPantries();
+      return [...community, ...base];
+    }
+
+    function renderRegionTabs() {
+      const buttons = document.querySelectorAll("#regionTabs .region-btn");
+      buttons.forEach(btn => {
+        const text = btn.textContent;
+        const isAll = selectedRegion === "ALL" && text.startsWith("All");
+        const isMatch = text === selectedRegion;
+        btn.classList.toggle("active", isAll || isMatch);
+      });
+    }
+
+    function selectRegion(region) {
+      selectedRegion = region;
+      renderRegionTabs();
+      renderStatesGrid();
+    }
+
+    function renderStatesGrid() {
+      const allPantries = getAllPantries();
+      const grid = document.getElementById("statesGrid");
+
+      const visibleStates = US_STATES_META.filter(s => selectedRegion === "ALL" || s.region === selectedRegion);
+
+      grid.innerHTML = visibleStates.map(s => {
+        const count = allPantries.filter(p => p.state === s.code).length;
+        const isActive = selectedState === s.code;
+        return `
+          <button
+            class="state-tile ${isActive ? 'active' : ''}"
+            onclick="toggleStateFilter('${s.code}')"
+            title="${s.name} (${count} verified listing${count === 1 ? '' : 's'})"
+          >
+            <span class="state-code">${s.code}</span>
+            <span class="state-name-tiny">${s.name} (${count})</span>
+          </button>
+        `;
+      }).join("");
+    }
+
+    function toggleStateFilter(stateCode) {
+      if (selectedState === stateCode) {
+        selectedState = "ALL";
+      } else {
+        selectedState = stateCode;
+      }
+      renderStatesGrid();
+      renderTagPills();
+      renderPantries();
+    }
+
+    function renderTagPills() {
+      const container = document.getElementById("tagPillsContainer");
+      container.innerHTML = FILTER_TAGS.map(tag => {
+        const activeClass = tag === selectedTag ? "pill active" : "pill";
+        const label = tag === "ALL" ? "All Pantries & Food Banks" : tag;
+        return `<button class="${activeClass}" onclick="selectTag('${tag.replace(/'/g, "\\'")}')">${label}</button>`;
+      }).join("");
+    }
+
+    function selectTag(tag) {
+      selectedTag = tag;
+      renderTagPills();
+      renderPantries();
+    }
+
+    function handleSearchInput() {
+      const val = (document.getElementById("searchInput").value || "").trim();
+      document.getElementById("clearSearchBtn").style.display = val ? "inline-flex" : "none";
+      renderPantries();
+    }
+
+    function clearSearch() {
+      document.getElementById("searchInput").value = "";
+      document.getElementById("clearSearchBtn").style.display = "none";
+      renderPantries();
+    }
+
+    function resetAllFilters() {
+      selectedRegion = "ALL";
+      selectedState = "ALL";
+      selectedTag = "ALL";
+      document.getElementById("searchInput").value = "";
+      document.getElementById("clearSearchBtn").style.display = "none";
+      renderRegionTabs();
+      renderStatesGrid();
+      renderTagPills();
+      renderPantries();
+    }
+
+    const zipGeoCache = {};
+    let lastLookedUpZip = "";
+
+    function haversineMiles(lat1, lon1, lat2, lon2) {
+      const toRad = d => (d * Math.PI) / 180;
+      const R = 3958.8; // Earth radius in miles
+      const dLat = toRad(lat2 - lat1);
+      const dLon = toRad(lon2 - lon1);
+      const a =
+        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+        Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) *
+        Math.sin(dLon / 2) * Math.sin(dLon / 2);
+      return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    }
+
+    async function lookupExactZipInfo(zip5) {
+      if (zipGeoCache[zip5]) return zipGeoCache[zip5];
+      try {
+        const resp = await fetch(`https://api.zippopotam.us/us/${zip5}`);
+        if (!resp.ok) return null;
+        const data = await resp.json();
+        const place = data.places && data.places[0];
+        if (!place) return null;
+        const info = {
+          city: place["place name"],
+          state: place["state abbreviation"],
+          state_name: place["state"],
+          lat: parseFloat(place["latitude"]),
+          lon: parseFloat(place["longitude"])
+        };
+        zipGeoCache[zip5] = info;
+        return info;
+      } catch (e) {
+        return null;
+      }
+    }
+
+    function renderPantries() {
+      const allPantries = getAllPantries();
+      const rawQuery = (document.getElementById("searchInput").value || "").trim();
+      const query = rawQuery.toLowerCase();
+      const zipHelper = document.getElementById("zipHelperCard");
+
+      // Check if user entered a 5-digit US ZIP code
+      const isFiveDigitZip = /^\d{5}$/.test(rawQuery);
+      const zip3 = isFiveDigitZip ? rawQuery.substring(0, 3) : null;
+      const inferredStateFromZip = isFiveDigitZip ? getStateFromZip(rawQuery) : null;
+      const cachedGeo = isFiveDigitZip ? zipGeoCache[rawQuery] : null;
+
+      if (isFiveDigitZip) {
+        const stateMeta = US_STATES_META.find(s => s.code === inferredStateFromZip);
+        const locationLabel = cachedGeo
+          ? `${cachedGeo.city}, ${cachedGeo.state_name} (${cachedGeo.state})`
+          : (stateMeta ? `${stateMeta.name} (${stateMeta.code})` : "Your Local Area");
+
+        document.getElementById("zipHelperTitle").textContent = `📍 Local Food Pantries Serving ZIP ${rawQuery} — ${locationLabel}`;
+        document.getElementById("zipHelperDesc").textContent = `Showing verified food pantries & regional food banks serving the ${rawQuery} (${locationLabel}) area, sorted by closest location:`;
+        document.getElementById("zipGoogleMapsBtn").style.display = "none";
+        zipHelper.classList.add("show");
+
+        // Trigger exact city + lat/lon lookup if not cached yet
+        if (!cachedGeo && lastLookedUpZip !== rawQuery) {
+          lastLookedUpZip = rawQuery;
+          lookupExactZipInfo(rawQuery).then(info => {
+            if (info && document.getElementById("searchInput").value.trim() === rawQuery) {
+              renderPantries();
+            }
+          });
+        }
+      } else {
+        zipHelper.classList.remove("show");
+      }
+
+      let filtered = allPantries.filter(p => {
+        if (selectedState !== "ALL" && p.state !== selectedState) return false;
+        if (selectedTag !== "ALL" && !(p.tags || []).includes(selectedTag)) return false;
+
+        if (!query) return true;
+
+        // If searching by a 5-digit ZIP code, strictly match pantries that serve that 3-digit local ZIP area!
+        if (isFiveDigitZip) {
+          if (p.zip === rawQuery) return true;
+          if (Array.isArray(p.served_zip3) && p.served_zip3.includes(zip3)) return true;
+          if (p.zip && p.zip.substring(0, 3) === zip3) return true;
+          return false;
+        }
+
+        return (
+          p.name.toLowerCase().includes(query) ||
+          p.city.toLowerCase().includes(query) ||
+          p.state.toLowerCase() === query ||
+          p.state_name.toLowerCase().includes(query) ||
+          (p.zip && p.zip.includes(query)) ||
+          (p.hours && p.hours.toLowerCase().includes(query)) ||
+          (p.tags || []).some(t => t.toLowerCase().includes(query))
+        );
+      });
+
+      // Fallback if a rural 3-digit ZIP wasn't explicitly listed: pick the closest regional food bank in that state
+      if (isFiveDigitZip && filtered.length === 0 && inferredStateFromZip) {
+        filtered = allPantries.filter(p => p.state === inferredStateFromZip);
+      }
+
+      // Sort ZIP code results by exact geographic distance (or numeric ZIP proximity) so closest local pantries are always first!
+      if (isFiveDigitZip) {
+        const targetZipNum = parseInt(rawQuery, 10);
+        filtered.sort((a, b) => {
+          if (cachedGeo && a.lat && a.lon && b.lat && b.lon) {
+            const distA = haversineMiles(cachedGeo.lat, cachedGeo.lon, a.lat, a.lon);
+            const distB = haversineMiles(cachedGeo.lat, cachedGeo.lon, b.lat, b.lon);
+            return distA - distB;
+          }
+          const diffA = Math.abs(parseInt(a.zip || "0", 10) - targetZipNum);
+          const diffB = Math.abs(parseInt(b.zip || "0", 10) - targetZipNum);
+          return diffA - diffB;
+        });
+      }
+
+      const stateHeaderLabel = isFiveDigitZip
+        ? (cachedGeo ? `ZIP ${rawQuery} — ${cachedGeo.city}, ${cachedGeo.state}` : `ZIP ${rawQuery} Local Area`)
+        : (selectedState === "ALL"
+            ? "All 50 States + DC"
+            : (US_STATES_META.find(s => s.code === selectedState)?.name || selectedState));
+
+      document.getElementById("resultsCountText").textContent =
+        `Showing ${filtered.length} verified listing${filtered.length === 1 ? '' : 's'} (${stateHeaderLabel})`;
+
+      const container = document.getElementById("pantriesListContainer");
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div style="background:#ffffff; border:1px solid #e2e8f0; border-radius:12px; padding:32px; text-align:center;">
+            <h3 style="margin-bottom:6px;">No matching food pantries found for that filter.</h3>
+            <p style="color:#64748b; font-size:0.9rem; margin-bottom:14px;">Try clearing your filter or searching by your 5-digit ZIP code or State name.</p>
+            <button class="btn-submit" onclick="resetAllFilters()">Reset All Filters</button>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = filtered.map(p => {
+        let distanceBadgeHtml = "";
+        if (isFiveDigitZip && cachedGeo && p.lat && p.lon) {
+          const miles = haversineMiles(cachedGeo.lat, cachedGeo.lon, p.lat, p.lon);
+          const milesText = miles < 1 ? "< 1 mile away" : `${miles.toFixed(1)} mi from ${rawQuery}`;
+          distanceBadgeHtml = `<span class="type-badge">📍 ${milesText}</span>`;
+        }
+
+        return `
+          <article class="pantry-card" style="align-items: center;">
+            <div class="pantry-main">
+              <div class="pantry-top-row">
+                <span class="state-badge">${p.state} — ${p.state_name}</span>
+                <span class="city-badge">${p.city} (ZIP ${p.zip})</span>
+                ${distanceBadgeHtml}
+              </div>
+
+              <h3 class="pantry-title" style="margin-bottom: 4px;">${p.name}</h3>
+
+              <div style="font-size: 0.88rem; color: #475569;">
+                <strong>Hours:</strong> ${p.hours}
+              </div>
+            </div>
+
+            <div class="pantry-actions">
+              <a href="${p.website}" target="_blank" rel="noopener noreferrer" class="action-btn primary" onclick="recordPantryClick('${p.id}')">
+                Visit Website &rarr;
+              </a>
+            </div>
+          </article>
+        `;
+      }).join("");
+    }
+
+    // Populate State Dropdown inside Submit Modal
+    function populateStateSelect() {
+      const select = document.getElementById("fState");
+      select.innerHTML = `<option value="">Select State...</option>` +
+        US_STATES_META.map(s => `<option value="${s.code}">${s.name} (${s.code})</option>`).join("");
+    }
+
+    function openSubmitModal() {
+      document.getElementById("formErrorMsg").style.display = "none";
+      document.getElementById("submitModal").classList.add("open");
+    }
+
+    function closeSubmitModal() {
+      document.getElementById("submitModal").classList.remove("open");
+    }
+
+    function handlePantrySubmit(e) {
+      e.preventDefault();
+      const errBox = document.getElementById("formErrorMsg");
+      errBox.style.display = "none";
+
+      const name = document.getElementById("fName").value.trim();
+      const stateCode = document.getElementById("fState").value;
+      const city = document.getElementById("fCity").value.trim();
+      const zip = document.getElementById("fZip").value.trim();
+      const hours = document.getElementById("fHours").value.trim();
+      const website = document.getElementById("fWebsite").value.trim();
+
+      const combinedCheck = `${name} ${city} ${hours} ${website}`;
+      if (!isFamilySafeText(combinedCheck)) {
+        errBox.textContent = "Submission blocked: Listings must strictly follow our Family Safety & Zero-Alcohol Policy.";
+        errBox.style.display = "block";
+        return;
+      }
+
+      const stateObj = US_STATES_META.find(s => s.code === stateCode);
+
+      const newPantry = {
+        id: "comm-" + Date.now(),
+        name,
+        state: stateCode,
+        state_name: stateObj ? stateObj.name : stateCode,
+        region: stateObj ? stateObj.region : "West",
+        city,
+        zip,
+        hours,
+        website,
+        tags: [],
+        is_community: true
+      };
+
+      const existing = loadCommunityPantries();
+      existing.unshift(newPantry);
+      saveCommunityPantries(existing);
+
+      document.getElementById("submitPantryForm").reset();
+      closeSubmitModal();
+
+      selectedState = stateCode;
+      renderStatesGrid();
+      renderPantries();
+    }
+
+    function exportCommunityPantriesCSV() {
+      const list = loadCommunityPantries();
+      if (!list.length) {
+        alert("No community-submitted pantries saved yet. Use the form above to add one!");
+        return;
+      }
+      const rows = [
+        ["Pantry Name", "State", "City", "ZIP", "Hours", "Website"]
+      ];
+      list.forEach(p => {
+        rows.push([
+          p.name, p.state, p.city, p.zip, p.hours, p.website
+        ]);
+      });
+      const csvContent = "data:text/csv;charset=utf-8," + rows.map(r => r.map(c => `"${String(c || '').replace(/"/g, '""')}"`).join(",")).join("\n");
+      const link = document.createElement("a");
+      link.setAttribute("href", encodeURI(csvContent));
+      link.setAttribute("download", "community_submitted_food_pantries.csv");
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+
+    // Initialize Page
+    populateStateSelect();
+    renderRegionTabs();
+    renderStatesGrid();
+    renderTagPills();
+    renderPantries();
+  </script>
+</body>
+</html>
